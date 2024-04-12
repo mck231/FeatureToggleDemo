@@ -1,0 +1,26 @@
+@{
+    ViewBag.Title = "Feature Toggle";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<button id="toggleFeatureButton">Check Feature Status</button>
+<p id="result"></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#toggleFeatureButton').click(function () {
+            $.ajax({
+                url: '@Url.Action("FeatureToggle", "Home")',
+                type: 'GET',
+                success: function (data) {
+                    $('#result').text(data.message);
+                },
+                error: function () {
+                    $('#result').text('Error processing your request');
+                }
+            });
+        });
+    });
+</script>
